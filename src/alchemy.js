@@ -43,7 +43,7 @@ arb_main.then((res) => {
         balances['ANT']=parseInt(token.tokenBalance, 16);
         console.log("<ANT>" + parseInt(token.tokenBalance, 16) + "</ANT>");
     }
-    if (token.contractAddress === '0xf224dbc383874ecf3d8c1a63736fd914c30448a3') {
+    if (token.contractAddress === '0x82af49447d8a07e3bd95bd0d56f35241523fbab1') {
         balances['ARBETH']=parseInt(token.tokenBalance, 16);
         console.log("<ARBETH>" + parseInt(token.tokenBalance, 16) + "</ARBETH>");
     }
