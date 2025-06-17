@@ -1,14 +1,14 @@
 <script lang="ts">
-    let data = $props();
+    let {data} = $props();
     $inspect(data);
 </script>
 
-<h1>{data.data.message}</h1>
-<p>Wallet: {data.data.wallet}</p>
+<h1>{data.message}</h1>
+<p>Wallet: {data.wallet}</p>
 
-{#if data.data.balances}
-<p>ANT: {data.data.balances.ANT}</p>
-<p>Arb ETH: {data.data.balances.ARBETH}</p>
+{#if data.balances}
+<p>ANT: {data.balances.ANT}</p>
+<p>Arb ETH: {data.balances.ARBETH}</p>
 {:else}
     <p>No balance found for this wallet.</p>
 {/if}
