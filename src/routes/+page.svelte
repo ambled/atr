@@ -1,5 +1,6 @@
-<script>
-	let { form } = $props();
+<script lang="ts">
+    import type { PageProps } from './$types';
+	let { form }: PageProps = $props();
 </script>
 
 <a href="/balance">Wallet shortcuts</a>

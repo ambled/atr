@@ -10,9 +10,18 @@ const arb_config = {
   network: Network.ARB_MAINNET,
 };
 const alchemy_arb = new Alchemy(arb_config);
+const eth_config = {
+  apiKey: API_KEY,
+  network: Network.ETH_MAINNET,
+};
+const alchemy_eth = new Alchemy(eth_config);
 
 export  const load: PageServerLoad = async ( event ) => {
-    const { wallet } = event.params;
+    const { wallet } = await event.params;
+    const eth_main = alchemy_eth.core.getTokenBalances(wallet);
+    eth_main.then((res) => {
+    console.log(res)
+    });
     const arb_main = alchemy_arb.core.getTokenBalances(wallet);
     arb_main.then((res) => {
     console.log(res)
