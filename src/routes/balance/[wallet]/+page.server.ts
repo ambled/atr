@@ -26,6 +26,7 @@ let values = {
 }
 let balance = new BigNumber(0);
 let price = new BigNumber(0);
+let total = 0.0;
 
 export  const load: PageServerLoad = async ( event ) => {
     const { wallet } = await event.params;
@@ -93,6 +94,11 @@ export  const load: PageServerLoad = async ( event ) => {
             }
 
         });
+
+        const tokens = Object.keys(values);
+        total = Object.values(tokens).reduce((acc, key) => {
+            return acc + (parseFloat(values[key]) || 0);
+        }, 0);
     } catch (error) {
         console.error(error);
     }
@@ -101,7 +107,8 @@ export  const load: PageServerLoad = async ( event ) => {
         wallet,
         balances,
         prices,
-        values
+        values,
+        total
     }
 
 };
