@@ -1,53 +1,107 @@
 import type { PageServerLoad } from './$types';
-import { Alchemy, Network } from "alchemy-sdk";
-let api_key = process.env.API_KEY || '';
+import BigNumber from 'bignumber.js';
 import { API_KEY } from '$env/static/private';
+const api_url = 'https://api.g.alchemy.com/data/v1/'+API_KEY+'/assets/tokens/by-address';
 let balances = {
-  'ANT': 0,
-  'ARBETH': 0}
-const arb_config = {
-  apiKey: API_KEY,
-  network: Network.ARB_MAINNET,
+  'ANT': "0",
+  'ARBETH': "0",
+   'ARBETH': "0",
+   'ARBETH': "0",
+  'ARBETH': "0",
 };
-const alchemy_arb = new Alchemy(arb_config);
-const eth_config = {
-  apiKey: API_KEY,
-  network: Network.ETH_MAINNET,
-};
-const alchemy_eth = new Alchemy(eth_config);
+let prices = {
+  'ARBETH': "0",
+    'ARBETH': "0",
+     'ARBETH': "0",
+     'ARBETH': "0",
+   'ARBETH': "0",
+}
+let values = {
+  'ARBETH': 0.0,
+  'ARBETH': 0.0,
+   'ARBETH': 0.0,
+   'ARBETH': 0.0,
+   'ARBETH': 0.0,
+
+}
+let balance = new BigNumber(0);
+let price = new BigNumber(0);
 
 export  const load: PageServerLoad = async ( event ) => {
     const { wallet } = await event.params;
-    const eth_main = alchemy_eth.core.getTokenBalances(wallet);
-    eth_main.then((res) => {
-    console.log(res)
-    });
-    const arb_main = alchemy_arb.core.getTokenBalances(wallet);
-    arb_main.then((res) => {
-    console.log(res)
-    console.log("<BALANCE>");
-    console.log("<WALLET>" + wallet + "</WALLET>");
-    console.log("<NETWORK>ARB</NETWORK>");
-  res.tokenBalances.map((token) => {
-    if (token.contractAddress === '0xa78d8321b20c4ef90ecd72f2588aa985a4bdb684') {
-        balances['ANT']=parseInt(token.tokenBalance, 16);
-        console.log("<ANT>" + parseInt(token.tokenBalance, 16) + "</ANT>");
-    }
-    if (token.contractAddress === '0x82af49447d8a07e3bd95bd0d56f35241523fbab1') {
-        balances['ARBETH']=parseInt(token.tokenBalance, 16);
-        console.log("<ARBETH>" + parseInt(token.tokenBalance, 16) + "</ARBETH>");
-    }
-  });
-    console.log("</BALANCE>");
-}).catch((err) => {
-  console.error("Error fetching token balances:", err);
-});
+    const options = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: '{"addresses":[{"address":"'+wallet+'","networks":["eth-mainnet","arb-mainnet"]}]}',
+    };
+    //console.dir([api_url, options], { depth: null });
+    console.log(JSON.stringify([api_url, options], null, 2))
+    try {
+        const response = await fetch(api_url, options);
+        const data = await response.json();
+        console.log(data.data.tokens);
+        data.data.tokens.forEach((token: any) => {
+            if (token.network === 'arb-mainnet' && token.tokenAddress === '0xa78d8321b20c4ef90ecd72f2588aa985a4bdb684') {
+                balance = new BigNumber(token.tokenBalance, 16)/ Math.pow(10, 18);
+                price = new BigNumber(token.tokenPrices[0].value);
+                balances['ANT'] = balance.toFixed(18);
+                prices['ANT'] = price.toFixed();
+                values['ANT'] = price.times(balance).toFixed(5);
+                console.log("<ANT>" + balances['ANT'] + "</ANT>");
+                console.log(token.tokenPrices);
+                console.log("Value: " + values['ANT']);
+            }
+            if (token.network === 'arb-mainnet' && token.tokenAddress === '0xaf88d065e77c8cc2239327c5edb3a432268e5831') {
+                balance = new BigNumber(token.tokenBalance, 16)/ Math.pow(10, 6);
+                price = new BigNumber(token.tokenPrices[0].value);
+                balances['ARBUSDC'] = balance.toFixed(6);
+                prices['ARBUSDC'] = price.toFixed();
+                values['ARBUSDC'] = price.times(balance).toFixed(5);
+                console.log("<ARBUSDC>" + balances['ARBUSDC'] + "</ARBUSDC>");
+                console.log(token.tokenPrices[0].value)
+                console.log("Value: " + values['ARBUSDC']);
+            }
+            if (token.network === 'arb-mainnet' && token.tokenAddress === null) {
+                balance = new BigNumber(token.tokenBalance, 16)/ Math.pow(10, 18);
+                price = new BigNumber(prices['MAINETH'] || token.tokenPrices[0].value);
+                balances['ARBETH'] = balance.toFixed(18);
+                prices['ARBETH'] = price.toFixed(12);
+                values['ARBETH'] = price.times(balance).toFixed(5);
+                console.log("<ARBETH>" + balances['ARBETH'] + "</ARBETH>");
+                console.log(token.tokenPrices)
+                console.log("Value: " + values['ARBETH']);
+            }
+            if (token.network === 'eth-mainnet' && token.tokenAddress === null) {
+                balance = new BigNumber(token.tokenBalance, 16)/ Math.pow(10, 18);
+                price = new BigNumber(token.tokenPrices[0].value);
+                balances['MAINETH'] = balance.toFixed(18);
+                prices['MAINETH'] = price.toFixed(12);
+                values['MAINETH'] = price.times(balance).toFixed(5);
+                console.log("<MAINETH>" + balances['MAINETH'] + "</MAINETH>");
+                console.log(token.tokenPrices)
+                console.log("Value: " + values['MAINETH']);
+            }
+            if (token.network === 'eth-mainnet' && token.tokenAddress === '0x329c6e459ffa7475718838145e5e85802db2a303') {
+                balance = new BigNumber(token.tokenBalance, 16)/ Math.pow(10, 18);
+                price = new BigNumber(token.tokenPrices[0].value);
+                balances['EMAID'] = balance.toFixed(18);
+                prices['EMAID'] = price.toFixed(12);
+                values['EMAID'] = price.times(balance).toFixed(5);
+                console.log("<EMAID>" + balances['EMAID'] + "</EMAID>");
+                console.log(token.tokenPrices)
+                console.log("Value: " + values['EMAID']);
+            }
 
+        });
+    } catch (error) {
+        console.error(error);
+    }
 
     return {
-        message: 'Hello Dawning!',
         wallet,
-        balances
+        balances,
+        prices,
+        values
     }
 
 };
