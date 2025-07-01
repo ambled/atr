@@ -97,7 +97,19 @@ export  const load: PageServerLoad = async ( event ) => {
 
         const tokens = Object.keys(values);
         total = Object.values(tokens).reduce((acc, key) => {
-            return acc + (parseFloat(values[key]) || 0);
+            let bigacc = new BigNumber(acc);
+            let bigvalue = new BigNumber(values[key]);
+            if (bigvalue.isNaN()) {
+                return acc; // Skip if value is NaN
+            }
+            if (bigvalue.isZero()) {
+                return acc; // Skip if value is zero
+            }
+            if (bigvalue.isNegative()) {
+                console.warn(`Negative value for ${key}: ${bigvalue.toString()}`);
+                return acc; // Skip if value is negative
+            }
+            return bigacc.plus(bigvalue).toFixed();
         }, 0);
     } catch (error) {
         console.error(error);
