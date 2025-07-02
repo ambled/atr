@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "27fb9a9c-91bd-4479-8471-87d6bd8a9c80",
+  "id": "0663e9b8-e97d-4ce6-957d-aeaf2e872c5c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "price": {
@@ -30,7 +30,7 @@
         },
         "price": {
           "name": "price",
-          "type": "blob",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -43,7 +43,17 @@
           "autoincrement": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "priceId": {
+          "name": "priceId",
+          "columns": [
+            "chainId",
+            "symbol",
+            "timestamp"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
@@ -123,7 +133,31 @@
           "autoincrement": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "txId": {
+          "name": "txId",
+          "columns": [
+            "chainId",
+            "blockNum",
+            "uniqueId"
+          ],
+          "isUnique": false
+        },
+        "idx_from": {
+          "name": "idx_from",
+          "columns": [
+            "fromWallet"
+          ],
+          "isUnique": false
+        },
+        "idx_to": {
+          "name": "idx_to",
+          "columns": [
+            "toWallet"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},

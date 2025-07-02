@@ -2,10 +2,11 @@ CREATE TABLE `price` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`chainId` text NOT NULL,
 	`symbol` text NOT NULL,
-	`price` blob NOT NULL,
+	`price` text NOT NULL,
 	`timestamp` integer NOT NULL
 );
 --> statement-breakpoint
+CREATE INDEX `priceId` ON `price` (`chainId`,`symbol`,`timestamp`);--> statement-breakpoint
 CREATE TABLE `transaction` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`chainId` text NOT NULL,
@@ -19,6 +20,9 @@ CREATE TABLE `transaction` (
 	`timestamp` integer NOT NULL
 );
 --> statement-breakpoint
+CREATE INDEX `txId` ON `transaction` (`chainId`,`blockNum`,`uniqueId`);--> statement-breakpoint
+CREATE INDEX `idx_from` ON `transaction` (`fromWallet`);--> statement-breakpoint
+CREATE INDEX `idx_to` ON `transaction` (`toWallet`);--> statement-breakpoint
 CREATE TABLE `wallet` (
 	`address` text PRIMARY KEY NOT NULL,
 	`status` text DEFAULT 'active' NOT NULL,
