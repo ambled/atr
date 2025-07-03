@@ -5,7 +5,7 @@ import { uniqueId, update } from 'lodash';
 export const wallet = sqliteTable('wallet', {
 	address: text().primaryKey(),
 	status: text().notNull().default('active'),
-	updatedAt: integer().notNull(),
+	updatedAt: integer('updatedAt', { mode: 'timestamp' }).notNull().default(new Date()),
 	name: text().notNull(),
 	ant: text().notNull().default('0'),
 	arbeth: text().notNull().default('0'),
@@ -22,7 +22,7 @@ export const transaction = sqliteTable('transaction', {
 	toWallet: text().notNull(),
 	symbol: text().notNull(),
 	value: text().notNull(),
-	timestamp: integer().notNull(),
+	timestamp: integer('timestamp', { mode: 'timestamp' }).notNull().default(new Date()),
 }, (table) => [
   index('txId').on(table.chainId, table.blockNum, table.uniqueId),
   index('idx_from').on(table.fromWallet),
@@ -33,8 +33,14 @@ export const price = sqliteTable('price', {
 	chainId: text().notNull(),
 	symbol: text().notNull(),
 	price: text().notNull(),
-	timestamp: integer().notNull(),
+	timestamp: integer('timestamp', { mode: 'timestamp' }).notNull().default(new Date()),
 }, (table) => [
   index('priceId').on(table.chainId, table.symbol, table.timestamp),
 ]);
 	
+export type Wallet = typeof wallet.$inferSelect;
+export type NewWallet = typeof wallet.$inferInsert;
+export type Transaction = typeof transaction.$inferSelect;
+export type NewTransaction = typeof transaction.$inferInsert;
+export type Price = typeof price.$inferSelect;
+export type NewPrice = typeof price.$inferInsert;
