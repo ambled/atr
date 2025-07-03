@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "0663e9b8-e97d-4ce6-957d-aeaf2e872c5c",
+  "id": "aff4012d-4099-46c7-856b-cd6748a3bbb6",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "price": {
@@ -40,7 +40,8 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "'\"2025-07-02T21:22:10.044Z\"'"
         }
       },
       "indexes": {
@@ -130,7 +131,8 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "'\"2025-07-02T21:22:10.043Z\"'"
         }
       },
       "indexes": {
@@ -186,7 +188,8 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "'\"2025-07-02T21:22:10.043Z\"'"
         },
         "name": {
           "name": "name",
