@@ -5,24 +5,23 @@ const api_url = 'https://api.g.alchemy.com/data/v1/'+API_KEY+'/assets/tokens/by-
 let balances = {
   'ANT': "0",
   'ARBETH': "0",
-   'ARBETH': "0",
-   'ARBETH': "0",
-  'ARBETH': "0",
+  'ARBUSDC': "0",
+  'MAINETH': "0",
+  'EMAID': "0",
 };
 let prices = {
+  'ANT': "0",
   'ARBETH': "0",
-    'ARBETH': "0",
-     'ARBETH': "0",
-     'ARBETH': "0",
-   'ARBETH': "0",
+  'ARBUSDC': "0",
+  'MAINETH': "0",
+  'EMAID': "0",
 }
 let values = {
+  'ANT': 0.0,
   'ARBETH': 0.0,
-  'ARBETH': 0.0,
-   'ARBETH': 0.0,
-   'ARBETH': 0.0,
-   'ARBETH': 0.0,
-
+  'ARBUSDC': 0.0,
+  'MAINETH': 0.0,
+  'EMAID': 0.0,
 }
 let balance = new BigNumber(0);
 let price = new BigNumber(0);

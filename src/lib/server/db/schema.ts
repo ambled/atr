@@ -1,6 +1,4 @@
-import { unique } from 'drizzle-orm/gel-core';
-import { sqliteTable, integer, text, index } from 'drizzle-orm/sqlite-core';
-import { uniqueId, update } from 'lodash';
+import { sqliteTable, integer, real, text, index } from 'drizzle-orm/sqlite-core';
 
 export const wallet = sqliteTable('wallet', {
 	address: text().primaryKey(),
@@ -8,9 +6,15 @@ export const wallet = sqliteTable('wallet', {
 	updatedAt: integer('updatedAt', { mode: 'timestamp' }).notNull().default(new Date()),
 	name: text().notNull(),
 	ant: text().notNull().default('0'),
+	ant_value: real().notNull().default(0.0),
 	arbeth: text().notNull().default('0'),
+	arbeth_value: real().notNull().default(0.0),
 	arbusdc: text().notNull().default('0'),
+	arbusdc_value: real().notNull().default(0.0),
 	maineth: text().notNull().default('0'),
+	maineth_value: real().notNull().default(0.0),
+	emaid: text().notNull().default('0'),
+	emaid_value: real().notNull().default(0.0),
 });
 export const transaction = sqliteTable('transaction', {
 	id: integer().primaryKey({ autoIncrement: true }),
