@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "aff4012d-4099-46c7-856b-cd6748a3bbb6",
+  "id": "9f303bc9-464b-4d18-8440-5e40b8f1872c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "price": {
@@ -41,7 +41,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'\"2025-07-02T21:22:10.044Z\"'"
+          "default": "'\"2025-07-05T19:06:10.238Z\"'"
         }
       },
       "indexes": {
@@ -132,7 +132,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'\"2025-07-02T21:22:10.043Z\"'"
+          "default": "'\"2025-07-05T19:06:10.238Z\"'"
         }
       },
       "indexes": {
@@ -189,7 +189,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'\"2025-07-02T21:22:10.043Z\"'"
+          "default": "'\"2025-07-05T19:06:10.236Z\"'"
         },
         "name": {
           "name": "name",
@@ -206,6 +206,14 @@
           "autoincrement": false,
           "default": "'0'"
         },
+        "ant_value": {
+          "name": "ant_value",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
         "arbeth": {
           "name": "arbeth",
           "type": "text",
@@ -213,6 +221,14 @@
           "notNull": true,
           "autoincrement": false,
           "default": "'0'"
+        },
+        "arbeth_value": {
+          "name": "arbeth_value",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
         },
         "arbusdc": {
           "name": "arbusdc",
@@ -222,6 +238,14 @@
           "autoincrement": false,
           "default": "'0'"
         },
+        "arbusdc_value": {
+          "name": "arbusdc_value",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
         "maineth": {
           "name": "maineth",
           "type": "text",
@@ -229,6 +253,30 @@
           "notNull": true,
           "autoincrement": false,
           "default": "'0'"
+        },
+        "maineth_value": {
+          "name": "maineth_value",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "emaid": {
+          "name": "emaid",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'0'"
+        },
+        "emaid_value": {
+          "name": "emaid_value",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
         }
       },
       "indexes": {},
