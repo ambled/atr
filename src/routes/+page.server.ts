@@ -16,10 +16,7 @@ export const actions = {
         //return fail(400, { tempWallet, missing: false });
         console.log("<pre>tempWallet: " + tempWallet + "</pre>");
 
-        //const existingWallet = await db.getWallet(tempWallet);
         const existingWallet = await db.db.select().from(wallet).where(eq(wallet.address,tempWallet)).limit(1);
-        //const existingWallet = await db.db.select().from(wallet).limit(1).run();
-        //const existingWallet = await db.db.select().from(wallet).limit(1);
         console.log("<pre>existingWallet: " + JSON.stringify(existingWallet, null, 2) + "</pre>");
         if (existingWallet.length > 0) {
             return fail(400, { tempWallet, exists: true });
@@ -54,13 +51,5 @@ export const actions = {
 	},
 } satisfies Actions;
 
-export const load: PageServerLoad = async (event) => {
-    console.log("Loading wallets...");
-	return {
-		form: {
-            wallets: await db.db.select().from(wallet).orderBy(wallet.updatedAt)
-        }
-	};
-};
 export const ssr = true; // Enable server-side rendering for this page
 export const csr = false; // Disable client-side rendering for this page

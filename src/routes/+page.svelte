@@ -13,21 +13,6 @@
 	</label>
 </form>
 
-<h2>Wallets</h2>
-
-{#if form?.wallets && form.wallets.length > 0}
-	<ul>
-		{#each form.wallets as wallet}
-			<li>
-				<a href="/balance/{wallet.address}">{wallet.address.slice(0, 10)}...</a>
-				<span>({wallet.name})</span>
-			</li>
-		{/each}
-	</ul>
-	<p>Total wallets: {form.wallets.length}</p>
-{:else}
-	<p>No wallets found.</p>
-{/if}
 
 {#if form?.invalid}
 	<p class="error">Invalid wallet address.</p>
